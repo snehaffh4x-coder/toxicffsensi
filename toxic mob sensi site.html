@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Toxic Tweaks - Free Fire Sensitivity Ai Tool</title>
+<title>Pro Sensitivity Tool - Free Fire AI Assistant</title>
 <style>
 :root {
---android-primary: #3ddc84;
---android-secondary: #2bb673;
---android-dark: #0f2d24;
---android-light: #f5f5f5;
---iphone-primary: #007aff;
---iphone-secondary: #5856d6;
---iphone-dark: #1c1c1e;
---iphone-light: #f2f2f7;
+--green-primary: #3ddc84;
+--green-secondary: #2bb673;
+--green-dark: #0f2d24;
+--green-light: #f5f5f5;
+--blue-primary: #007aff;
+--blue-secondary: #5856d6;
+--blue-dark: #1c1c1e;
+--blue-light: #f2f2f7;
 }
 
 * {
@@ -25,23 +25,23 @@ transition: all 0.3s ease;
 }
 
 body {
-background-color: var(--android-dark);
-color: var(--android-light);
+background-color: var(--green-dark);
+color: var(--green-light);
 overflow-x: hidden;
 }
 
-body.iphone-mode {
-background-color: var(--iphone-dark);
-color: var(--iphone-light);
+body.ios-theme {
+background-color: var(--blue-dark);
+color: var(--blue-light);
 }
 
-.container {
+.main-wrapper {
 max-width: 100%;
 padding: 20px;
 position: relative;
 }
 
-.header {
+.title-section {
 text-align: center;
 margin-bottom: 20px;
 position: relative;
@@ -49,24 +49,24 @@ overflow: hidden;
 padding: 15px 0;
 }
 
-.header h1 {
+.title-section h1 {
 font-size: 2.5rem;
 margin-bottom: 5px;
-color: var(--android-primary);
+color: var(--green-primary);
 font-weight: 700;
 }
 
-body.iphone-mode .header h1 {
-color: var(--iphone-primary);
+body.ios-theme .title-section h1 {
+color: var(--blue-primary);
 }
 
-.header p {
+.title-section p {
 font-size: 1rem;
 color: rgba(255,255,255,0.7);
 }
 
 /* Theme switcher button */
-.theme-switcher {
+.theme-toggle {
 position: absolute;
 top: 15px;
 right: 15px;
@@ -82,12 +82,12 @@ cursor: pointer;
 z-index: 100;
 }
 
-.theme-switcher i {
+.theme-toggle i {
 font-size: 1.2rem;
 color: white;
 }
 
-.theme-options {
+.theme-panel {
 position: absolute;
 top: 60px;
 right: 15px;
@@ -100,11 +100,11 @@ gap: 10px;
 z-index: 100;
 }
 
-.theme-options.active {
+.theme-panel.active {
 display: flex;
 }
 
-.theme-option {
+.theme-color {
 width: 30px;
 height: 30px;
 border-radius: 50%;
@@ -113,38 +113,38 @@ cursor: pointer;
 transition: transform 0.2s;
 }
 
-.theme-option:hover {
+.theme-color:hover {
 transform: scale(1.1);
 }
 
-.theme-option.green {
+.theme-color.green {
 background: #3ddc84;
 }
 
-.theme-option.purple {
+.theme-color.purple {
 background: #9c27b0;
 }
 
-.theme-option.blue {
+.theme-color.blue {
 background: #2196f3;
 }
 
-.theme-option.red {
+.theme-color.red {
 background: #f44336;
 }
 
-.theme-option.orange {
+.theme-color.orange {
 background: #ff9800;
 }
 
-.device-selection {
+.platform-choice {
 display: flex;
 justify-content: center;
 gap: 15px;
 margin: 20px 0;
 }
 
-.device-btn {
+.platform-btn {
 padding: 12px 25px;
 border: none;
 border-radius: 25px;
@@ -158,30 +158,30 @@ gap: 10px;
 font-weight: 500;
 }
 
-.device-btn.android {
-background-color: var(--android-primary);
-color: var(--android-dark);
+.platform-btn.android {
+background-color: var(--green-primary);
+color: var(--green-dark);
 }
 
-.device-btn.iphone {
+.platform-btn.ios {
 background-color: rgba(255,255,255,0.1);
 }
 
-body.iphone-mode .device-btn.iphone {
-background-color: var(--iphone-primary);
+body.ios-theme .platform-btn.ios {
+background-color: var(--blue-primary);
 color: white;
 }
 
-body.iphone-mode .device-btn.android {
+body.ios-theme .platform-btn.android {
 background-color: rgba(255,255,255,0.1);
 color: white;
 }
 
-.device-btn i {
+.platform-btn i {
 font-size: 1.3rem;
 }
 
-.iphone-models, .android-model-input, .iphone-variants, .headshot-selection, .settings-section, .social-section {
+.iphone-selection, .android-device-form, .iphone-options, .headshot-options, .config-section, .social-section {
 display: none;
 background-color: rgba(255,255,255,0.05);
 border-radius: 15px;
@@ -191,7 +191,7 @@ max-width: 800px;
 animation: fadeIn 0.5s ease;
 }
 
-body.iphone-mode .iphone-models, body.iphone-mode .android-model-input, body.iphone-mode .iphone-variants, body.iphone-mode .headshot-selection, body.iphone-mode .settings-section, body.iphone-mode .social-section {
+body.ios-theme .iphone-selection, body.ios-theme .android-device-form, body.ios-theme .iphone-options, body.ios-theme .headshot-options, body.ios-theme .config-section, body.ios-theme .social-section {
 background-color: rgba(255,255,255,0.05);
 }
 
@@ -200,23 +200,23 @@ from { opacity: 0; transform: translateY(20px); }
 to { opacity: 1; transform: translateY(0); }
 }
 
-.iphone-models h2, .iphone-variants h2, .android-model-input h2, .headshot-selection h2, .settings-section h2 {
+.iphone-selection h2, .iphone-options h2, .android-device-form h2, .headshot-options h2, .config-section h2 {
 text-align: center;
 margin-bottom: 20px;
-color: var(--android-primary);
+color: var(--green-primary);
 }
 
-body.iphone-mode .iphone-models h2, body.iphone-mode .iphone-variants h2, body.iphone-mode .android-model-input h2, body.iphone-mode .headshot-selection h2, body.iphone-mode .settings-section h2 {
-color: var(--iphone-primary);
+body.ios-theme .iphone-selection h2, body.ios-theme .iphone-options h2, body.ios-theme .android-device-form h2, body.ios-theme .headshot-options h2, body.ios-theme .config-section h2 {
+color: var(--blue-primary);
 }
 
-.model-grid, .variant-grid {
+.device-grid, .option-grid {
 display: grid;
 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
 gap: 12px;
 }
 
-.model-btn, .variant-btn {
+.device-btn, .option-btn {
 padding: 10px;
 border: none;
 border-radius: 10px;
@@ -227,17 +227,17 @@ text-align: center;
 font-size: 0.9rem;
 }
 
-.model-btn:hover, .model-btn.active, .variant-btn:hover, .variant-btn.active {
-background-color: var(--android-primary);
-color: var(--android-dark);
+.device-btn:hover, .device-btn.active, .option-btn:hover, .option-btn.active {
+background-color: var(--green-primary);
+color: var(--green-dark);
 }
 
-body.iphone-mode .model-btn:hover, body.iphone-mode .model-btn.active, body.iphone-mode .variant-btn:hover, body.iphone-mode .variant-btn.active {
-background-color: var(--iphone-primary);
+body.ios-theme .device-btn:hover, body.ios-theme .device-btn.active, body.ios-theme .option-btn:hover, body.ios-theme .option-btn.active {
+background-color: var(--blue-primary);
 color: white;
 }
 
-.android-model-input input {
+.android-device-form input {
 width: 100%;
 padding: 12px;
 border-radius: 10px;
@@ -248,39 +248,39 @@ font-size: 1rem;
 margin-bottom: 15px;
 }
 
-.android-model-input input::placeholder {
+.android-device-form input::placeholder {
 color: rgba(255,255,255,0.5);
 }
 
-.android-details {
+.device-details {
 display: grid;
 grid-template-columns: repeat(2, 1fr);
 gap: 12px;
 margin-bottom: 20px;
 }
 
-.detail-card {
+.detail-box {
 background-color: rgba(255,255,255,0.1);
 padding: 12px;
 border-radius: 10px;
 }
 
-.detail-card h3 {
-color: var(--android-primary);
+.detail-box h3 {
+color: var(--green-primary);
 margin-bottom: 5px;
 font-size: 0.9rem;
 }
 
-body.iphone-mode .detail-card h3 {
-color: var(--iphone-primary);
+body.ios-theme .detail-box h3 {
+color: var(--blue-primary);
 }
 
-.detail-card p {
+.detail-box p {
 font-size: 0.85rem;
 color: rgba(255,255,255,0.9);
 }
 
-.headshot-options {
+.headshot-rates {
 display: flex;
 justify-content: center;
 flex-wrap: wrap;
@@ -288,7 +288,7 @@ gap: 8px;
 margin: 15px 0;
 }
 
-.headshot-btn {
+.rate-btn {
 padding: 8px 16px;
 border: none;
 border-radius: 20px;
@@ -299,52 +299,52 @@ font-size: 0.95rem;
 font-weight: 500;
 }
 
-.headshot-btn:hover, .headshot-btn.active {
-background-color: var(--android-primary);
-color: var(--android-dark);
+.rate-btn:hover, .rate-btn.active {
+background-color: var(--green-primary);
+color: var(--green-dark);
 transform: scale(1.05);
 }
 
-body.iphone-mode .headshot-btn:hover, body.iphone-mode .headshot-btn.active {
-background-color: var(--iphone-primary);
+body.ios-theme .rate-btn:hover, body.ios-theme .rate-btn.active {
+background-color: var(--blue-primary);
 color: white;
 }
 
-.settings-grid {
+.config-grid {
 display: grid;
 grid-template-columns: repeat(2, 1fr);
 gap: 12px;
 }
 
-.setting-card {
+.config-card {
 background-color: rgba(255,255,255,0.1);
 padding: 12px;
 border-radius: 10px;
 }
 
-.setting-card h3 {
+.config-card h3 {
 margin-bottom: 8px;
 font-size: 0.95rem;
-color: var(--android-primary);
+color: var(--green-primary);
 }
 
-body.iphone-mode .setting-card h3 {
-color: var(--iphone-primary);
+body.ios-theme .config-card h3 {
+color: var(--blue-primary);
 }
 
-.slider-container {
+.range-control {
 width: 100%;
 margin: 8px 0;
 }
 
-.slider-container label {
+.range-control label {
 display: block;
 margin-bottom: 4px;
 font-size: 0.85rem;
 color: rgba(255,255,255,0.8);
 }
 
-.slider {
+.range-slider {
 width: 100%;
 height: 6px;
 -webkit-appearance: none;
@@ -354,26 +354,26 @@ outline: none;
 border-radius: 10px;
 }
 
-.slider::-webkit-slider-thumb {
+.range-slider::-webkit-slider-thumb {
 -webkit-appearance: none;
 appearance: none;
 width: 18px;
 height: 18px;
 border-radius: 50%;
-background: var(--android-primary);
+background: var(--green-primary);
 cursor: pointer;
 }
 
-body.iphone-mode .slider::-webkit-slider-thumb {
-background: var(--iphone-primary);
+body.ios-theme .range-slider::-webkit-slider-thumb {
+background: var(--blue-primary);
 }
 
-.locked-settings {
+.premium-locked {
 position: relative;
 margin-top: 20px;
 }
 
-.locked-overlay {
+.lock-overlay {
 position: absolute;
 top: 0;
 left: 0;
@@ -389,17 +389,17 @@ backdrop-filter: blur(3px);
 border-radius: 10px;
 }
 
-.locked-overlay h3 {
-color: var(--android-primary);
+.lock-overlay h3 {
+color: var(--green-primary);
 margin-bottom: 8px;
 font-size: 1.1rem;
 }
 
-body.iphone-mode .locked-overlay h3 {
-color: var(--iphone-primary);
+body.ios-theme .lock-overlay h3 {
+color: var(--blue-primary);
 }
 
-.locked-overlay p {
+.lock-overlay p {
 font-size: 0.9rem;
 text-align: center;
 max-width: 80%;
@@ -410,7 +410,7 @@ color: rgba(255,255,255,0.8);
 text-align: center;
 }
 
-.social-handles {
+.social-platforms {
 display: flex;
 justify-content: center;
 flex-wrap: wrap;
@@ -418,7 +418,7 @@ gap: 15px;
 margin: 25px 0;
 }
 
-.social-card {
+.platform-card {
 width: 150px;
 height: 180px;
 background-color: rgba(255,255,255,0.1);
@@ -429,23 +429,23 @@ cursor: pointer;
 transition: all 0.3s ease;
 }
 
-.social-card:hover {
+.platform-card:hover {
 transform: translateY(-5px);
 box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-.social-card img {
+.platform-card img {
 width: 100%;
 height: 100px;
 object-fit: cover;
 }
 
-.social-card .badge {
+.platform-card .badge {
 position: absolute;
 top: 5px;
 right: 5px;
-background-color: var(--android-primary);
-color: var(--android-dark);
+background-color: var(--green-primary);
+color: var(--green-dark);
 width: 25px;
 height: 25px;
 border-radius: 50%;
@@ -455,32 +455,32 @@ align-items: center;
 font-size: 0.7rem;
 }
 
-body.iphone-mode .social-card .badge {
-background-color: var(--iphone-primary);
+body.ios-theme .platform-card .badge {
+background-color: var(--blue-primary);
 color: white;
 }
 
-.social-card h3 {
+.platform-card h3 {
 padding: 12px;
 font-size: 1rem;
 color: white;
 }
 
-.social-actions {
+.social-tasks {
 display: none;
 margin-top: 20px;
 }
 
-.social-actions h3 {
+.social-tasks h3 {
 margin-bottom: 15px;
-color: var(--android-primary);
+color: var(--green-primary);
 }
 
-body.iphone-mode .social-actions h3 {
-color: var(--iphone-primary);
+body.ios-theme .social-tasks h3 {
+color: var(--blue-primary);
 }
 
-.notification {
+.toast-message {
 position: fixed;
 top: 20px;
 left: 50%;
@@ -499,37 +499,37 @@ transition: all 0.3s ease;
 max-width: 90%;
 }
 
-.notification.show {
+.toast-message.show {
 opacity: 1;
 top: 30px;
 }
 
-.notification.android {
+.toast-message.android {
 background-color: rgba(0, 0, 0, 0.7);
 }
 
-.notification.iphone {
+.toast-message.ios {
 background-color: rgba(0, 0, 0, 0.7);
 }
 
-.loading-circle {
+.loading-spinner {
 width: 20px;
 height: 20px;
 border: 3px solid rgba(255,255,255,0.3);
-border-top-color: var(--android-primary);
+border-top-color: var(--green-primary);
 border-radius: 50%;
 animation: spin 1s linear infinite;
 }
 
-body.iphone-mode .loading-circle {
-border-top-color: var(--iphone-primary);
+body.ios-theme .loading-spinner {
+border-top-color: var(--blue-primary);
 }
 
 @keyframes spin {
 to { transform: rotate(360deg); }
 }
 
-.floating-gif {
+.promo-gif {
 width: 90%;
 max-width: 500px;
 height: 120px;
@@ -547,18 +547,18 @@ animation: float 6s ease-in-out infinite;
 100% { transform: translateY(0px); }
 }
 
-.floating-gif img {
+.promo-gif img {
 width: 100%;
 height: 100%;
 object-fit: cover;
 }
 
-.btn {
+.action-btn {
 padding: 12px 25px;
 border: none;
 border-radius: 25px;
-background: linear-gradient(135deg, var(--android-primary), var(--android-secondary));
-color: var(--android-dark);
+background: linear-gradient(135deg, var(--green-primary), var(--green-secondary));
+color: var(--green-dark);
 font-weight: 600;
 cursor: pointer;
 font-size: 1rem;
@@ -568,27 +568,27 @@ letter-spacing: 0.5px;
 box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-body.iphone-mode .btn {
-background: linear-gradient(135deg, var(--iphone-primary), var(--iphone-secondary));
+body.ios-theme .action-btn {
+background: linear-gradient(135deg, var(--blue-primary), var(--blue-secondary));
 color: white;
 }
 
-.btn:hover {
+.action-btn:hover {
 transform: translateY(-3px);
 box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
-.btn:active {
+.action-btn:active {
 transform: translateY(1px);
 }
 
-.btn:disabled {
+.action-btn:disabled {
 opacity: 0.6;
 cursor: not-allowed;
 transform: none !important;
 }
 
-.credits-info {
+.credits-display {
 text-align: center;
 margin: 15px 0;
 font-size: 0.9rem;
@@ -596,23 +596,23 @@ color: rgba(255,255,255,0.7);
 }
 
 @media (max-width: 768px) {
-.header h1 {
+.title-section h1 {
 font-size: 2rem;
 }
-.settings-grid {
+.config-grid {
 grid-template-columns: 1fr;
 }
-.android-details {
+.device-details {
 grid-template-columns: 1fr;
 }
-.model-grid, .variant-grid {
+.device-grid, .option-grid {
 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 }
-.social-card {
+.platform-card {
 width: 120px;
 height: 160px;
 }
-.social-card img {
+.platform-card img {
 height: 80px;
 }
 }
@@ -624,7 +624,7 @@ gap: 15px;
 margin-bottom: 20px;
 }
 
-.info-box {
+.info-panel {
 background-color: rgba(0, 0, 0, 0.7);
 padding: 12px;
 border-radius: 10px;
@@ -633,8 +633,8 @@ font-size: 14px;
 text-align: left;
 }
 
-/* Popup Styles */
-.popup-overlay {
+/* Modal Styles */
+.modal-overlay {
 position: fixed;
 top: 0;
 left: 0;
@@ -651,12 +651,12 @@ visibility: hidden;
 transition: all 0.3s ease;
 }
 
-.popup-overlay.active {
+.modal-overlay.active {
 opacity: 1;
 visibility: visible;
 }
 
-.popup-content {
+.modal-content {
 background: linear-gradient(135deg, #1c1c1e, #2d2d30);
 border-radius: 15px;
 padding: 25px;
@@ -669,33 +669,33 @@ transform: scale(0.9);
 transition: transform 0.3s ease;
 }
 
-.popup-overlay.active .popup-content {
+.modal-overlay.active .modal-content {
 transform: scale(1);
 }
 
-.popup-content h2 {
-color: var(--android-primary);
+.modal-content h2 {
+color: var(--green-primary);
 margin-bottom: 15px;
 font-size: 1.5rem;
 }
 
-body.iphone-mode .popup-content h2 {
-color: var(--iphone-primary);
+body.ios-theme .modal-content h2 {
+color: var(--blue-primary);
 }
 
-.popup-content p {
+.modal-content p {
 margin-bottom: 20px;
 color: rgba(255, 255, 255, 0.8);
 }
 
-.popup-buttons {
+.modal-buttons {
 display: flex;
 justify-content: center;
 gap: 15px;
 margin-top: 20px;
 }
 
-.popup-btn {
+.modal-btn {
 padding: 12px 20px;
 border: none;
 border-radius: 25px;
@@ -705,22 +705,22 @@ font-size: 0.9rem;
 flex: 1;
 }
 
-.purchase-btn {
+.buy-btn {
 background: linear-gradient(135deg, #ff6b6b, #ee5a24);
 color: white;
 }
 
 .free-btn {
-background: linear-gradient(135deg, var(--android-primary), var(--android-secondary));
-color: var(--android-dark);
+background: linear-gradient(135deg, var(--green-primary), var(--green-secondary));
+color: var(--green-dark);
 }
 
-body.iphone-mode .free-btn {
-background: linear-gradient(135deg, var(--iphone-primary), var(--iphone-secondary));
+body.ios-theme .free-btn {
+background: linear-gradient(135deg, var(--blue-primary), var(--blue-secondary));
 color: white;
 }
 
-.blur-background {
+.blur-bg {
 filter: blur(5px);
 pointer-events: none;
 user-select: none;
@@ -729,215 +729,215 @@ user-select: none;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<div class="container" id="main-container">
-<div class="header">
-<h1>Toxic Tweaks pro</h1>
-<p>AI Tool by @toxic.meta</p>
+<div class="main-wrapper" id="app-container">
+<div class="title-section">
+<h1>Pro Sensitivity Tool</h1>
+<p>AI Assistant by @toxic.meta</p>
 <!-- Theme switcher button -->
-<button class="theme-switcher" id="theme-switcher">
+<button class="theme-toggle" id="theme-toggle">
 <i class="fas fa-palette"></i>
 </button>
-<div class="theme-options" id="theme-options">
-<div class="theme-option green" data-theme="default"></div>
-<div class="theme-option purple" data-theme="purple"></div>
-<div class="theme-option blue" data-theme="blue"></div>
-<div class="theme-option red" data-theme="red"></div>
-<div class="theme-option orange" data-theme="orange"></div>
+<div class="theme-panel" id="theme-panel">
+<div class="theme-color green" data-theme="default"></div>
+<div class="theme-color purple" data-theme="purple"></div>
+<div class="theme-color blue" data-theme="blue"></div>
+<div class="theme-color red" data-theme="red"></div>
+<div class="theme-color orange" data-theme="orange"></div>
 </div>
 </div>
-<div class="floating-gif" id="floating-gif">
+<div class="promo-gif" id="promo-gif">
 <img src="images/3o7TKSjRrfIPjeUGG4-giphy.gif" alt="Free Fire GIF">
 </div>
-<div class="device-selection">
-<button class="device-btn android" id="android-btn"><i class="fab fa-android"></i> ANDROID</button>
-<button class="device-btn iphone" id="iphone-btn"><i class="fab fa-apple"></i> IPHONE</button>
+<div class="platform-choice">
+<button class="platform-btn android" id="android-btn"><i class="fab fa-android"></i> ANDROID</button>
+<button class="platform-btn ios" id="ios-btn"><i class="fab fa-apple"></i> IPHONE</button>
 </div>
-<div class="iphone-models" id="iphone-models">
+<div class="iphone-selection" id="iphone-selection">
 <h2>Select Your iPhone Model</h2>
-<div class="model-grid">
-<button class="model-btn">iPhone X</button>
-<button class="model-btn">iPhone 11</button>
-<button class="model-btn">iPhone 12</button>
-<button class="model-btn">iPhone 13</button>
-<button class="model-btn">iPhone 14</button>
-<button class="model-btn">iPhone 15</button>
+<div class="device-grid">
+<button class="device-btn">iPhone X</button>
+<button class="device-btn">iPhone 11</button>
+<button class="device-btn">iPhone 12</button>
+<button class="device-btn">iPhone 13</button>
+<button class="device-btn">iPhone 14</button>
+<button class="device-btn">iPhone 15</button>
 </div>
 </div>
-<div class="android-model-input" id="android-model-input" style="display: none;">
+<div class="android-device-form" id="android-device-form" style="display: none;">
 <h2>Your Device Information</h2>
 <div class="device-info-grid">
-<div class="info-box"><strong>Device</strong><div id="device-model">Detecting...</div></div>
-<div class="info-box"><strong>OS Version</strong><div id="device-os">Detecting...</div></div>
-<div class="info-box"><strong>RAM</strong><div id="device-ram">Detecting...</div></div>
-<div class="info-box"><strong>Screen</strong><div id="device-screen">Detecting...</div></div>
-<div class="info-box"><strong>Battery</strong><div id="device-battery">Detecting...</div></div>
-<div class="info-box"><strong>Time</strong><div id="device-time">Detecting...</div></div>
+<div class="info-panel"><strong>Device</strong><div id="device-model">Detecting...</div></div>
+<div class="info-panel"><strong>OS Version</strong><div id="device-os">Detecting...</div></div>
+<div class="info-panel"><strong>RAM</strong><div id="device-ram">Detecting...</div></div>
+<div class="info-panel"><strong>Screen</strong><div id="device-screen">Detecting...</div></div>
+<div class="info-panel"><strong>Battery</strong><div id="device-battery">Detecting...</div></div>
+<div class="info-panel"><strong>Time</strong><div id="device-time">Detecting...</div></div>
 </div>
 <h2 style="margin-top: 20px;">Enter Your Android Device Model</h2>
 <input type="text" id="android-model" placeholder="Example: Samsung Galaxy S23 Ultra">
-<button class="btn" id="android-continue-btn">Continue</button>
+<button class="action-btn" id="android-continue-btn">Continue</button>
 </div>
-<div class="iphone-variants" id="iphone-variants">
+<div class="iphone-options" id="iphone-options">
 <h2>Select Variant</h2>
-<div class="variant-grid" id="variant-grid">
-<!-- Variant buttons will be added dynamically -->
+<div class="option-grid" id="option-grid">
+<!-- Option buttons will be added dynamically -->
 </div>
 </div>
-<div class="headshot-selection" id="headshot-selection">
+<div class="headshot-options" id="headshot-options">
 <h2>Select Headshot Rate</h2>
-<div class="headshot-options">
-<button class="headshot-btn" data-rate="70">70%</button>
-<button class="headshot-btn" data-rate="76">76%</button>
-<button class="headshot-btn" data-rate="80">80%</button>
-<button class="headshot-btn" data-rate="84">84%</button>
-<button class="headshot-btn" data-rate="90">90%</button>
-<button class="headshot-btn" data-rate="91">91%</button>
-<button class="headshot-btn" data-rate="97">97%</button>
+<div class="headshot-rates">
+<button class="rate-btn" data-rate="70">70%</button>
+<button class="rate-btn" data-rate="76">76%</button>
+<button class="rate-btn" data-rate="80">80%</button>
+<button class="rate-btn" data-rate="84">84%</button>
+<button class="rate-btn" data-rate="90">90%</button>
+<button class="rate-btn" data-rate="91">91%</button>
+<button class="rate-btn" data-rate="97">97%</button>
 </div>
 </div>
-<div class="settings-section" id="iphone-settings">
+<div class="config-section" id="ios-config">
 <h2>iPhone Sensitivity Settings</h2>
-<div class="settings-grid">
-<div class="setting-card">
+<div class="config-grid">
+<div class="config-card">
 <h3>In-Game Sensitivity</h3>
-<div class="slider-container">
-<label>General: <span id="iphone-general">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="iphone-general-slider" disabled>
+<div class="range-control">
+<label>General: <span id="ios-general">-</span></label>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="ios-general-slider" disabled>
 </div>
-<div class="slider-container">
-<label>Red Dot: <span id="iphone-reddot">-</span></label>
-<input type="range" min="0" max="15" value="0" class="slider" id="iphone-reddot-slider" disabled>
+<div class="range-control">
+<label>Red Dot: <span id="ios-reddot">-</span></label>
+<input type="range" min="0" max="15" value="0" class="range-slider" id="ios-reddot-slider" disabled>
 </div>
-<div class="slider-container">
-<label>2x Scope: <span id="iphone-2x">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="iphone-2x-slider" disabled>
+<div class="range-control">
+<label>2x Scope: <span id="ios-2x">-</span></label>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="ios-2x-slider" disabled>
 </div>
-<div class="slider-container">
-<label>4x Scope: <span id="iphone-4x">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="iphone-4x-slider" disabled>
+<div class="range-control">
+<label>4x Scope: <span id="ios-4x">-</span></label>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="ios-4x-slider" disabled>
 </div>
-<div class="slider-container">
-<label>Sniper Scope: <span id="iphone-sniper">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="iphone-sniper-slider" disabled>
+<div class="range-control">
+<label>Sniper Scope: <span id="ios-sniper">-</span></label>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="ios-sniper-slider" disabled>
 </div>
-<div class="slider-container">
-<label>Free Camera: <span id="iphone-freecam">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="iphone-freecam-slider" disabled>
+<div class="range-control">
+<label>Free Camera: <span id="ios-freecam">-</span></label>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="ios-freecam-slider" disabled>
 </div>
-<div class="slider-container">
-<label>Fire Button Size: <span id="iphone-firebtn">-</span></label>
-<input type="range" min="33" max="50" value="0" class="slider" id="iphone-firebtn-slider" disabled>
+<div class="range-control">
+<label>Fire Button Size: <span id="ios-firebtn">-</span></label>
+<input type="range" min="33" max="50" value="0" class="range-slider" id="ios-firebtn-slider" disabled>
 </div>
 </div>
-<div class="setting-card">
+<div class="config-card">
 <h3>System Settings</h3>
-<div class="slider-container">
-<label>Glider Cursor: <span id="iphone-glider">-</span></label>
-<input type="range" min="90" max="120" value="0" class="slider" id="iphone-glider-slider" disabled>
+<div class="range-control">
+<label>Glider Cursor: <span id="ios-glider">-</span></label>
+<input type="range" min="90" max="120" value="0" class="range-slider" id="ios-glider-slider" disabled>
 </div>
-<div class="slider-container">
-<label>Idle Opacity: <span id="iphone-opacity">-</span></label>
-<input type="range" min="90" max="100" value="0" class="slider" id="iphone-opacity-slider" disabled>
+<div class="range-control">
+<label>Idle Opacity: <span id="ios-opacity">-</span></label>
+<input type="range" min="90" max="100" value="0" class="range-slider" id="ios-opacity-slider" disabled>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>Tracking Sensitivity</label>
 <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
 <span>&#128034;</span>
 <span>&#128007;</span>
 </div>
-<input type="range" min="0" max="100" value="100" class="slider" id="iphone-tracking-slider" disabled>
+<input type="range" min="0" max="100" value="100" class="range-slider" id="ios-tracking-slider" disabled>
 </div>
-<div class="slider-container">
-<label>Movement Tolerance: <span id="iphone-tolerance">-</span></label>
-<input type="range" min="0" max="100" value="0" class="slider" id="iphone-tolerance-slider" disabled>
+<div class="range-control">
+<label>Movement Tolerance: <span id="ios-tolerance">-</span></label>
+<input type="range" min="0" max="100" value="0" class="range-slider" id="ios-tolerance-slider" disabled>
 </div>
-<div class="slider-container">
-<label>Auto Scanning Time: <span id="iphone-scanning">-</span></label>
+<div class="range-control">
+<label>Auto Scanning Time: <span id="ios-scanning">-</span></label>
 </div>
-<div class="slider-container">
-<label>Loops: <span id="iphone-loops">-</span></label>
+<div class="range-control">
+<label>Loops: <span id="ios-loops">-</span></label>
 </div>
-<div class="slider-container">
-<label>Movement Repeat: <span id="iphone-movement">-</span></label>
+<div class="range-control">
+<label>Movement Repeat: <span id="ios-movement">-</span></label>
 </div>
-<div class="slider-container">
-<label>Long Press: <span id="iphone-longpress">-</span></label>
+<div class="range-control">
+<label>Long Press: <span id="ios-longpress">-</span></label>
 </div>
-<div class="slider-container">
-<label>Pointer Speed: <span id="iphone-pointer">-</span></label>
+<div class="range-control">
+<label>Pointer Speed: <span id="ios-pointer">-</span></label>
 </div>
 </div>
 </div>
-<div class="locked-settings">
-<div class="locked-overlay">
+<div class="premium-locked">
+<div class="lock-overlay">
 <h3>&#128274; Premium Settings Locked</h3>
 <p>Unlock these premium sensitivity settings by reaching 599 members on telegram</p>
 </div>
-<div class="settings-grid">
-<div class="setting-card">
+<div class="config-grid">
+<div class="config-card">
 <h3>Advanced Aim Assist</h3>
 <p>Customize your aim assist for different weapon types and ranges</p>
 </div>
-<div class="setting-card">
+<div class="config-card">
 <h3>Smart Scope Switching</h3>
 <p>Automatically adjust sensitivity when switching scopes</p>
 </div>
-<div class="setting-card">
+<div class="config-card">
 <h3>Movement Prediction</h3>
 <p>AI predicts enemy movement for better tracking</p>
 </div>
-<div class="setting-card">
+<div class="config-card">
 <h3>Recoil Control Patterns</h3>
 <p>Custom recoil patterns for all weapons</p>
 </div>
 </div>
 </div>
-<button class="btn" id="generate-btn">Generate Sensitivity</button>
-<div class="credits-info">
+<button class="action-btn" id="generate-btn">Generate Sensitivity</button>
+<div class="credits-display">
 <p>You have <span id="credits">2</span> credits remaining.</p>
 </div>
 </div>
-<div class="settings-section" id="android-settings">
+<div class="config-section" id="android-config">
 <h2>Android Sensitivity Settings</h2>
-<div class="settings-grid">
-<div class="setting-card">
+<div class="config-grid">
+<div class="config-card">
 <h3>In-Game Sensitivity</h3>
-<div class="slider-container">
+<div class="range-control">
 <label>General: <span id="android-general">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="android-general-slider" disabled>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="android-general-slider" disabled>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>Red Dot: <span id="android-reddot">-</span></label>
-<input type="range" min="3" max="10" value="0" class="slider" id="android-reddot-slider" disabled>
+<input type="range" min="3" max="10" value="0" class="range-slider" id="android-reddot-slider" disabled>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>2x Scope: <span id="android-2x">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="android-2x-slider" disabled>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="android-2x-slider" disabled>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>4x Scope: <span id="android-4x">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="android-4x-slider" disabled>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="android-4x-slider" disabled>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>Sniper Scope: <span id="android-sniper">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="android-sniper-slider" disabled>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="android-sniper-slider" disabled>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>Free Camera: <span id="android-freecam">-</span></label>
-<input type="range" min="0" max="200" value="0" class="slider" id="android-freecam-slider" disabled>
+<input type="range" min="0" max="200" value="0" class="range-slider" id="android-freecam-slider" disabled>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>Fire Button Size: <span id="android-firebtn">-</span></label>
-<input type="range" min="34" max="62" value="0" class="slider" id="android-firebtn-slider" disabled>
+<input type="range" min="34" max="62" value="0" class="range-slider" id="android-firebtn-slider" disabled>
 </div>
 </div>
-<div class="setting-card">
+<div class="config-card">
 <h3>System Settings</h3>
-<div class="slider-container">
+<div class="range-control">
 <label>DPI: <span id="android-dpi">-</span></label>
-<input type="range" min="450" max="583" value="0" class="slider" id="android-dpi-slider" disabled>
+<input type="range" min="450" max="583" value="0" class="range-slider" id="android-dpi-slider" disabled>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>Pointer Speed</label>
 <select id="android-pointer" style="width: 100%; padding: 8px; border-radius: 5px; background-color: rgba(255,255,255,0.1); color: white; border: none;" disabled>
 <option value="low">Low</option>
@@ -945,129 +945,129 @@ user-select: none;
 <option value="high">High</option>
 </select>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>Touch Sampling Rate</label>
-<input type="range" min="60" max="240" value="0" class="slider" id="android-sampling-slider" disabled>
+<input type="range" min="60" max="240" value="0" class="range-slider" id="android-sampling-slider" disabled>
 <span id="android-sampling-value">-</span>
 </div>
-<div class="slider-container">
+<div class="range-control">
 <label>Response Time</label>
-<input type="range" min="1" max="10" value="0" class="slider" id="android-response-slider" disabled>
+<input type="range" min="1" max="10" value="0" class="range-slider" id="android-response-slider" disabled>
 <span id="android-response-value">-</span>
 </div>
 </div>
 </div>
-<div class="locked-settings">
-<div class="locked-overlay">
+<div class="premium-locked">
+<div class="lock-overlay">
 <h3>&#128274; Premium Settings Locked</h3>
 <p>Unlock these premium sensitivity settings by reaching 500 members on telegram</p>
 </div>
-<div class="settings-grid">
-<div class="setting-card">
+<div class="config-grid">
+<div class="config-card">
 <h3>Advanced Gyro Controls</h3>
 <p>Customize gyroscope sensitivity for precise aiming</p>
 </div>
-<div class="setting-card">
+<div class="config-card">
 <h3>Smart Fire Button</h3>
 <p>Adjust fire button behavior based on weapon type</p>
 </div>
-<div class="setting-card">
+<div class="config-card">
 <h3>Auto Recoil Compensation</h3>
 <p>Automatically counter weapon recoil patterns</p>
 </div>
-<div class="setting-card">
+<div class="config-card">
 <h3>Performance Boost</h3>
 <p>Optimize device performance for smoother gameplay</p>
 </div>
 </div>
 </div>
-<button class="btn" id="generate-android-btn">Generate Sensitivity</button>
-<div class="credits-info">
+<button class="action-btn" id="generate-android-btn">Generate Sensitivity</button>
+<div class="credits-display">
 <p>You have <span id="android-credits">2</span> credits remaining.</p>
 </div>
 </div>
 <div class="social-section" id="social-section">
 <h2>Follow Us For More Credits</h2>
 <p>Complete any action below to get 2 more sensitivity generation credits.</p>
-<div class="social-handles" id="social-handles">
-<!-- Social cards will be added dynamically -->
+<div class="social-platforms" id="social-platforms">
+<!-- Platform cards will be added dynamically -->
 </div>
-<div class="social-actions" id="instagram-actions" style="display: none;">
+<div class="social-tasks" id="instagram-tasks" style="display: none;">
 <h3>Instagram Actions</h3>
-<a href="https://www.instagram.com/toxic.meta/" target="_blank" class="btn" style="background-color: #E1306C;"><i class="fas fa-instagram"></i> Follow @toxic.meta</a>
-<button class="btn" style="background-color: #E1306C; margin-top: 10px;"><i class="fas fa-heart"></i> Like 1 Reel</button>
-<button class="btn" style="background-color: #E1306C; margin-top: 10px;"><i class="fas fa-comment"></i> Comment "toxic on top!"</button>
+<a href="https://www.instagram.com/toxic.meta/" target="_blank" class="action-btn" style="background-color: #E1306C;"><i class="fas fa-instagram"></i> Follow @toxic.meta</a>
+<button class="action-btn" style="background-color: #E1306C; margin-top: 10px;"><i class="fas fa-heart"></i> Like 1 Reel</button>
+<button class="action-btn" style="background-color: #E1306C; margin-top: 10px;"><i class="fas fa-comment"></i> Comment "toxic on top!"</button>
 </div>
-<div class="social-actions" id="instagram-backup-actions" style="display: none;">
+<div class="social-tasks" id="instagram-backup-tasks" style="display: none;">
 <h3>Instagram Backup Actions</h3>
-<a href="https://www.instagram.com/toxic.meta/" target="_blank" class="btn" style="background-color: #E1306C;"> Download Game Booster </a>
+<a href="https://www.instagram.com/toxic.meta/" target="_blank" class="action-btn" style="background-color: #E1306C;"> Download Game Booster </a>
 </div>
-<div class="social-actions" id="youtube-actions" style="display: none;">
+<div class="social-tasks" id="youtube-tasks" style="display: none;">
 <h3>YouTube Actions</h3>
-<a href="https://www.instagram.com/toxic.meta/" target="_blank" class="btn" style="background-color: #FF0000;"><i class="fab fa-youtube"></i> Download Game Booster</a>
+<a href="https://www.instagram.com/toxic.meta/" target="_blank" class="action-btn" style="background-color: #FF0000;"><i class="fab fa-youtube"></i> Download Game Booster</a>
 </div>
-<div class="social-actions" id="telegram-actions" style="display: none;">
+<div class="social-tasks" id="telegram-tasks" style="display: none;">
 <h3>Telegram Actions</h3>
-<a href="https://t.me/TOXICMETA" target="_blank" class="btn" style="background-color: #0088cc;"><i class="fab fa-telegram"></i> Download Game Booster</a>
+<a href="https://t.me/TOXICMETA" target="_blank" class="action-btn" style="background-color: #0088cc;"><i class="fab fa-telegram"></i> Download Game Booster</a>
 </div>
 </div>
 </div>
-<!-- Popup for device purchase -->
-<div class="popup-overlay" id="device-popup">
-<div class="popup-content">
+<!-- Modal for device purchase -->
+<div class="modal-overlay" id="device-modal">
+<div class="modal-content">
 <h2>Your Device is Latest</h2>
-<p>To get sensitivity for <span id="device-name-popup">your device</span>, you need to purchase Sensi or get it for free by completing a simple task.</p>
-<div class="popup-buttons">
-<button class="popup-btn purchase-btn" id="purchase-btn">Purchase Sensi</button>
-<button class="popup-btn free-btn" id="free-sensi-btn">Free Sensi</button>
+<p>To get sensitivity for <span id="device-name-modal">your device</span>, you need to purchase Sensi or get it for free by completing a simple task.</p>
+<div class="modal-buttons">
+<button class="modal-btn buy-btn" id="buy-btn">Purchase Sensi</button>
+<button class="modal-btn free-btn" id="free-sensi-btn">Free Sensi</button>
 </div>
 </div>
 </div>
-<div class="notification" id="notification">
-<div class="loading-circle"></div>
-<span id="notification-text">Generating sensitivity settings...</span>
+<div class="toast-message" id="toast-message">
+<div class="loading-spinner"></div>
+<span id="toast-text">Generating sensitivity settings...</span>
 </div>
 <script>
-// Device selection
+// Platform selection
 const androidBtn = document.getElementById('android-btn');
-const iphoneBtn = document.getElementById('iphone-btn');
-const iphoneModels = document.getElementById('iphone-models');
-const androidModelInput = document.getElementById('android-model-input');
+const iosBtn = document.getElementById('ios-btn');
+const iphoneSelection = document.getElementById('iphone-selection');
+const androidDeviceForm = document.getElementById('android-device-form');
 const androidContinueBtn = document.getElementById('android-continue-btn');
-const iphoneVariants = document.getElementById('iphone-variants');
-const variantGrid = document.getElementById('variant-grid');
-const headshotSelection = document.getElementById('headshot-selection');
-const iphoneSettings = document.getElementById('iphone-settings');
-const androidSettings = document.getElementById('android-settings');
+const iphoneOptions = document.getElementById('iphone-options');
+const optionGrid = document.getElementById('option-grid');
+const headshotOptions = document.getElementById('headshot-options');
+const iosConfig = document.getElementById('ios-config');
+const androidConfig = document.getElementById('android-config');
 const socialSection = document.getElementById('social-section');
-const socialHandles = document.getElementById('social-handles');
+const socialPlatforms = document.getElementById('social-platforms');
 const generateBtn = document.getElementById('generate-btn');
 const generateAndroidBtn = document.getElementById('generate-android-btn');
-const notification = document.getElementById('notification');
-const notificationText = document.getElementById('notification-text');
+const toastMessage = document.getElementById('toast-message');
+const toastText = document.getElementById('toast-text');
 const credits = document.getElementById('credits');
 const androidCredits = document.getElementById('android-credits');
-const floatingGif = document.getElementById('floating-gif');
-const devicePopup = document.getElementById('device-popup');
-const deviceNamePopup = document.getElementById('device-name-popup');
-const purchaseBtn = document.getElementById('purchase-btn');
+const promoGif = document.getElementById('promo-gif');
+const deviceModal = document.getElementById('device-modal');
+const deviceNameModal = document.getElementById('device-name-modal');
+const buyBtn = document.getElementById('buy-btn');
 const freeSensiBtn = document.getElementById('free-sensi-btn');
-const mainContainer = document.getElementById('main-container');
+const appContainer = document.getElementById('app-container');
 
 // Theme switcher
-const themeSwitcher = document.getElementById('theme-switcher');
-const themeOptions = document.getElementById('theme-options');
-const themeOptionBtns = document.querySelectorAll('.theme-option');
+const themeToggle = document.getElementById('theme-toggle');
+const themePanel = document.getElementById('theme-panel');
+const themeColorBtns = document.querySelectorAll('.theme-color');
 
 // Set Android theme by default
-document.body.classList.remove('iphone-mode');
+document.body.classList.remove('ios-theme');
 
 // Different GIFs for Android and iPhone
 const androidGif = "https://i.pinimg.com/originals/c0/7e/ec/c07eec02830e5a8092d50b73c7960e65.gif";
-const iphoneGif = "https://i.pinimg.com/originals/a0/c9/7b/a0c97b801bb61c9c53825e1b80a02f60.gif";
+const iosGif = "https://i.pinimg.com/originals/a0/c9/7b/a0c97b801bb61c9c53825e1b80a02f60.gif";
 
-// iPhone model variants mapping
-const iphoneVariantsMap = {
+// iPhone model options mapping
+const iphoneOptionsMap = {
 'iPhone X': ['X', 'XR', 'XS', 'XS Max'],
 'iPhone 11': ['11', '11 Pro', '11 Pro Max'],
 'iPhone 12': ['12', '12 Mini', '12 Pro', '12 Pro Max'],
@@ -1077,104 +1077,104 @@ const iphoneVariantsMap = {
 };
 
 // Social media platforms
-const socialPlatforms = [
-{ name: 'Instagram', icon: 'instagram', color: '#E1306C', actions: 'instagram-actions' },
-{ name: 'Instagram Backup', icon: 'instagram', color: '#E1306C', actions: 'instagram-backup-actions' },
-{ name: 'YouTube', icon: 'youtube', color: '#FF0000', actions: 'youtube-actions' },
-{ name: 'Telegram', icon: 'telegram', color: '#0088cc', actions: 'telegram-actions' }
+const socialMediaPlatforms = [
+{ name: 'Instagram', icon: 'instagram', color: '#E1306C', tasks: 'instagram-tasks' },
+{ name: 'Instagram Backup', icon: 'instagram', color: '#E1306C', tasks: 'instagram-backup-tasks' },
+{ name: 'YouTube', icon: 'youtube', color: '#FF0000', tasks: 'youtube-tasks' },
+{ name: 'Telegram', icon: 'telegram', color: '#0088cc', tasks: 'telegram-tasks' }
 ];
 
 // Theme configurations
-const themes = {
+const colorThemes = {
 default: {
-androidPrimary: '#3ddc84',
-androidSecondary: '#2bb673',
-androidDark: '#0f2d24',
-androidLight: '#f5f5f5',
-iphonePrimary: '#007aff',
-iphoneSecondary: '#5856d6',
-iphoneDark: '#1c1c1e',
-iphoneLight: '#f2f2f7'
+greenPrimary: '#3ddc84',
+greenSecondary: '#2bb673',
+greenDark: '#0f2d24',
+greenLight: '#f5f5f5',
+bluePrimary: '#007aff',
+blueSecondary: '#5856d6',
+blueDark: '#1c1c1e',
+blueLight: '#f2f2f7'
 },
 purple: {
-androidPrimary: '#9c27b0',
-androidSecondary: '#7b1fa2',
-androidDark: '#2a0845',
-androidLight: '#f5f5f5',
-iphonePrimary: '#9c27b0',
-iphoneSecondary: '#7b1fa2',
-iphoneDark: '#2a0845',
-iphoneLight: '#f2f2f7'
+greenPrimary: '#9c27b0',
+greenSecondary: '#7b1fa2',
+greenDark: '#2a0845',
+greenLight: '#f5f5f5',
+bluePrimary: '#9c27b0',
+blueSecondary: '#7b1fa2',
+blueDark: '#2a0845',
+blueLight: '#f2f2f7'
 },
 blue: {
-androidPrimary: '#2196f3',
-androidSecondary: '#1976d2',
-androidDark: '#0a3d62',
-androidLight: '#f5f5f5',
-iphonePrimary: '#2196f3',
-iphoneSecondary: '#1976d2',
-iphoneDark: '#0a3d62',
-iphoneLight: '#f2f2f7'
+greenPrimary: '#2196f3',
+greenSecondary: '#1976d2',
+greenDark: '#0a3d62',
+greenLight: '#f5f5f5',
+bluePrimary: '#2196f3',
+blueSecondary: '#1976d2',
+blueDark: '#0a3d62',
+blueLight: '#f2f2f7'
 },
 red: {
-androidPrimary: '#f44336',
-androidSecondary: '#d32f2f',
-androidDark: '#4a0e0e',
-androidLight: '#f5f5f5',
-iphonePrimary: '#f44336',
-iphoneSecondary: '#d32f2f',
-iphoneDark: '#4a0e0e',
-iphoneLight: '#f2f2f7'
+greenPrimary: '#f44336',
+greenSecondary: '#d32f2f',
+greenDark: '#4a0e0e',
+greenLight: '#f5f5f5',
+bluePrimary: '#f44336',
+blueSecondary: '#d32f2f',
+blueDark: '#4a0e0e',
+blueLight: '#f2f2f7'
 },
 orange: {
-androidPrimary: '#ff9800',
-androidSecondary: '#f57c00',
-androidDark: '#4a2c0e',
-androidLight: '#f5f5f5',
-iphonePrimary: '#ff9800',
-iphoneSecondary: '#f57c00',
-iphoneDark: '#4a2c0e',
-iphoneLight: '#f2f2f7'
+greenPrimary: '#ff9800',
+greenSecondary: '#f57c00',
+greenDark: '#4a2c0e',
+greenLight: '#f5f5f5',
+bluePrimary: '#ff9800',
+blueSecondary: '#f57c00',
+blueDark: '#4a2c0e',
+blueLight: '#f2f2f7'
 }
 };
 
 // Theme switcher functionality
-themeSwitcher.addEventListener('click', () => {
-themeOptions.classList.toggle('active');
+themeToggle.addEventListener('click', () => {
+themePanel.classList.toggle('active');
 });
 
-// Close theme options when clicking outside
+// Close theme panel when clicking outside
 document.addEventListener('click', (e) => {
-if (!themeSwitcher.contains(e.target) && !themeOptions.contains(e.target)) {
-themeOptions.classList.remove('active');
+if (!themeToggle.contains(e.target) && !themePanel.contains(e.target)) {
+themePanel.classList.remove('active');
 }
 });
 
 // Apply selected theme - Direct CSS variable approach
-function applyTheme(themeName) {
-const theme = themes[themeName];
+function applyColorTheme(themeName) {
+const theme = colorThemes[themeName];
 if (!theme) return;
 
 // Apply theme to CSS variables directly
 const root = document.documentElement;
-root.style.setProperty('--android-primary', theme.androidPrimary);
-root.style.setProperty('--android-secondary', theme.androidSecondary);
-root.style.setProperty('--android-dark', theme.androidDark);
-root.style.setProperty('--android-light', theme.androidLight);
-root.style.setProperty('--iphone-primary', theme.iphonePrimary);
-root.style.setProperty('--iphone-secondary', theme.iphoneSecondary);
-root.style.setProperty('--iphone-dark', theme.iphoneDark);
-root.style.setProperty('--iphone-light', theme.iphoneLight);
+root.style.setProperty('--green-primary', theme.greenPrimary);
+root.style.setProperty('--green-secondary', theme.greenSecondary);
+root.style.setProperty('--green-dark', theme.greenDark);
+root.style.setProperty('--green-light', theme.greenLight);
+root.style.setProperty('--blue-primary', theme.bluePrimary);
+root.style.setProperty('--blue-secondary', theme.blueSecondary);
+root.style.setProperty('--blue-dark', theme.blueDark);
+root.style.setProperty('--blue-light', theme.blueLight);
 
 // Save theme preference to localStorage
-localStorage.setItem('selectedTheme', themeName);
+localStorage.setItem('selectedColorTheme', themeName);
   
 // Show a notification that theme has been changed
-showThemeNotification(themeName);
+showThemeToast(themeName);
 }
 
-// Show notification when theme is changed
-function showThemeNotification(themeName) {
+// Show toast when theme is changed
+function showThemeToast(themeName) {
 const themeColors = {
 default: 'Green',
 purple: 'Purple',
@@ -1183,43 +1183,43 @@ red: 'Red',
 orange: 'Orange'
 };
   
-notificationText.textContent = `Theme changed to ${themeColors[themeName]}`;
-notification.classList.add('show');
+toastText.textContent = `Theme changed to ${themeColors[themeName]}`;
+toastMessage.classList.add('show');
   
 setTimeout(() => {
-notification.classList.remove('show');
+toastMessage.classList.remove('show');
 }, 2000);
 }
 
 // Apply selected theme - FIXED VERSION
-themeOptionBtns.forEach(btn => {
+themeColorBtns.forEach(btn => {
 // Add both click and touch events for better mobile support
 btn.addEventListener('click', (e) => {
 e.preventDefault();
 e.stopPropagation();
 const theme = btn.getAttribute('data-theme');
-applyTheme(theme);
-themeOptions.classList.remove('active');
+applyColorTheme(theme);
+themePanel.classList.remove('active');
 });
   
 btn.addEventListener('touchstart', (e) => {
 e.preventDefault();
 e.stopPropagation();
 const theme = btn.getAttribute('data-theme');
-applyTheme(theme);
-themeOptions.classList.remove('active');
+applyColorTheme(theme);
+themePanel.classList.remove('active');
 });
 });
 
 // Load saved theme on page load
 window.addEventListener('DOMContentLoaded', () => {
-const savedTheme = localStorage.getItem('selectedTheme');
+const savedTheme = localStorage.getItem('selectedColorTheme');
 if (savedTheme) {
-applyTheme(savedTheme);
+applyColorTheme(savedTheme);
 }
 });
 
-function detectDeviceInfo() {
+function getDeviceInfo() {
 const userAgent = navigator.userAgent;
 let deviceName = "Android Device";
 if (/Android/.test(userAgent)) {
@@ -1239,39 +1239,39 @@ document.getElementById("device-battery").innerText = `${Math.round(battery.leve
 // Autofill model input
 document.getElementById("android-model").value = deviceName;
 // Show block
-document.getElementById("android-model-input").style.display = "block";
+document.getElementById("android-device-form").style.display = "block";
 }
 
-// Show iPhone variants based on selected model
-function showiPhoneVariants(model) {
-variantGrid.innerHTML = '';
-const variants = iphoneVariantsMap[model];
-variants.forEach(variant => {
+// Show iPhone options based on selected model
+function showiPhoneOptions(model) {
+optionGrid.innerHTML = '';
+const options = iphoneOptionsMap[model];
+options.forEach(option => {
 const btn = document.createElement('button');
-btn.className = 'variant-btn';
-btn.textContent = variant;
+btn.className = 'option-btn';
+btn.textContent = option;
 btn.addEventListener('click', () => {
-document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
 btn.classList.add('active');
-headshotSelection.style.display = 'block';
-iphoneSettings.style.display = 'none';
+headshotOptions.style.display = 'block';
+iosConfig.style.display = 'none';
 });
-variantGrid.appendChild(btn);
+optionGrid.appendChild(btn);
 });
 }
 
 // Show random social media platforms (1-2 at a time)
 function showRandomSocialPlatforms() {
-socialHandles.innerHTML = '';
+socialPlatforms.innerHTML = '';
 // Shuffle the platforms array
-const shuffledPlatforms = [...socialPlatforms].sort(() => 0.5 - Math.random());
+const shuffledPlatforms = [...socialMediaPlatforms].sort(() => 0.5 - Math.random());
 // Show 1-2 platforms at a time
 const platformsToShow = Math.random() > 0.5 ? 1 : 2;
 for (let i = 0; i < platformsToShow; i++) {
 const platform = shuffledPlatforms[i];
 const card = document.createElement('div');
-card.className = 'social-card';
-card.setAttribute('data-social', platform.actions.replace('-actions', ''));
+card.className = 'platform-card';
+card.setAttribute('data-social', platform.tasks.replace('-tasks', ''));
 let gifURL = '';
 // Choose GIF based on platform
 if (platform.name === 'Instagram Backup') {
@@ -1297,53 +1297,53 @@ card.innerHTML = `
 <h3>${platform.name}</h3>
 `;
 card.addEventListener('click', () => {
-document.querySelectorAll('.social-actions').forEach(el => el.style.display = 'none');
-document.getElementById(`${platform.actions}`).style.display = 'block';
+document.querySelectorAll('.social-tasks').forEach(el => el.style.display = 'none');
+document.getElementById(`${platform.tasks}`).style.display = 'block';
 });
-socialHandles.appendChild(card);
+socialPlatforms.appendChild(card);
 }
 }
 
-// Show device purchase popup
-function showDevicePopup(deviceName) {
-deviceNamePopup.textContent = deviceName;
-devicePopup.classList.add('active');
-mainContainer.classList.add('blur-background');
+// Show device purchase modal
+function showDeviceModal(deviceName) {
+deviceNameModal.textContent = deviceName;
+deviceModal.classList.add('active');
+appContainer.classList.add('blur-bg');
 }
 
-// Hide device purchase popup
-function hideDevicePopup() {
-devicePopup.classList.remove('active');
-mainContainer.classList.remove('blur-background');
+// Hide device purchase modal
+function hideDeviceModal() {
+deviceModal.classList.remove('active');
+appContainer.classList.remove('blur-bg');
 }
 
 androidBtn.addEventListener('click', () => {
-document.body.classList.remove('iphone-mode');
+document.body.classList.remove('ios-theme');
 androidBtn.classList.add('android');
-iphoneBtn.classList.remove('iphone');
+iosBtn.classList.remove('ios');
 // Change GIF for Android
-floatingGif.innerHTML = `<img src="${androidGif}" alt="Free Fire GIF">`;
-iphoneModels.style.display = 'none';
-iphoneVariants.style.display = 'none';
-detectDeviceInfo(); // Auto detect info
-headshotSelection.style.display = 'none';
-iphoneSettings.style.display = 'none';
-androidSettings.style.display = 'none';
+promoGif.innerHTML = `<img src="${androidGif}" alt="Free Fire GIF">`;
+iphoneSelection.style.display = 'none';
+iphoneOptions.style.display = 'none';
+getDeviceInfo(); // Auto detect info
+headshotOptions.style.display = 'none';
+iosConfig.style.display = 'none';
+androidConfig.style.display = 'none';
 socialSection.style.display = 'none';
 });
 
-iphoneBtn.addEventListener('click', () => {
-document.body.classList.add('iphone-mode');
-iphoneBtn.classList.add('iphone');
+iosBtn.addEventListener('click', () => {
+document.body.classList.add('ios-theme');
+iosBtn.classList.add('ios');
 androidBtn.classList.remove('android');
 // Change GIF for iPhone
-floatingGif.innerHTML = `<img src="${iphoneGif}" alt="Free Fire GIF">`;
-iphoneModels.style.display = 'block';
-iphoneVariants.style.display = 'none';
-androidModelInput.style.display = 'none';
-headshotSelection.style.display = 'none';
-iphoneSettings.style.display = 'none';
-androidSettings.style.display = 'none';
+promoGif.innerHTML = `<img src="${iosGif}" alt="Free Fire GIF">`;
+iphoneSelection.style.display = 'block';
+iphoneOptions.style.display = 'none';
+androidDeviceForm.style.display = 'none';
+headshotOptions.style.display = 'none';
+iosConfig.style.display = 'none';
+androidConfig.style.display = 'none';
 socialSection.style.display = 'none';
 });
 
@@ -1354,77 +1354,77 @@ if (modelInput.value.trim() === '') {
 alert('Please enter your device model');
 return;
 }
-// Show device popup for Android
-showDevicePopup(modelInput.value);
+// Show device modal for Android
+showDeviceModal(modelInput.value);
 });
 
 // iPhone model selection
-const modelBtns = document.querySelectorAll('.model-btn');
-modelBtns.forEach(btn => {
+const deviceBtns = document.querySelectorAll('.device-btn');
+deviceBtns.forEach(btn => {
 btn.addEventListener('click', () => {
-modelBtns.forEach(b => b.classList.remove('active'));
+deviceBtns.forEach(b => b.classList.remove('active'));
 btn.classList.add('active');
-iphoneVariants.style.display = 'block';
-headshotSelection.style.display = 'none';
-iphoneSettings.style.display = 'none';
-// Show variants for selected model
-showiPhoneVariants(btn.textContent);
+iphoneOptions.style.display = 'block';
+headshotOptions.style.display = 'none';
+iosConfig.style.display = 'none';
+// Show options for selected model
+showiPhoneOptions(btn.textContent);
 });
 });
 
 // Headshot rate selection
-const headshotBtns = document.querySelectorAll('.headshot-btn');
+const rateBtns = document.querySelectorAll('.rate-btn');
 let selectedHeadshotRate = 0;
-headshotBtns.forEach(btn => {
+rateBtns.forEach(btn => {
 btn.addEventListener('click', () => {
-headshotBtns.forEach(b => b.classList.remove('active'));
+rateBtns.forEach(b => b.classList.remove('active'));
 btn.classList.add('active');
 selectedHeadshotRate = parseInt(btn.getAttribute('data-rate'));
-if (document.body.classList.contains('iphone-mode')) {
-iphoneSettings.style.display = 'block';
-androidSettings.style.display = 'none';
+if (document.body.classList.contains('ios-theme')) {
+iosConfig.style.display = 'block';
+androidConfig.style.display = 'none';
 } else {
-androidSettings.style.display = 'block';
-iphoneSettings.style.display = 'none';
+androidConfig.style.display = 'block';
+iosConfig.style.display = 'none';
 }
 });
 });
 
-// Popup button handlers
-purchaseBtn.addEventListener('click', () => {
+// Modal button handlers
+buyBtn.addEventListener('click', () => {
 window.open('https://wa.link/q1nzye', '_blank');
-hideDevicePopup();
+hideDeviceModal();
 });
 
 freeSensiBtn.addEventListener('click', () => {
-hideDevicePopup();
-// After clicking free sensi, show headshot selection
-headshotSelection.style.display = 'block';
+hideDeviceModal();
+// After clicking free sensi, show headshot options
+headshotOptions.style.display = 'block';
 });
 
 function generateSensitivity() {
-if (document.body.classList.contains('iphone-mode')) {
+if (document.body.classList.contains('ios-theme')) {
 // iPhone settings
-document.getElementById('iphone-general').textContent = Math.floor(Math.random() * 21) + 50;
-document.getElementById('iphone-general-slider').value = document.getElementById('iphone-general').textContent;
-document.getElementById('iphone-reddot').textContent = Math.floor(Math.random() * 16);
-document.getElementById('iphone-reddot-slider').value = document.getElementById('iphone-reddot').textContent;
-document.getElementById('iphone-2x').textContent = Math.floor(Math.random() * 51) + 150;
-document.getElementById('iphone-2x-slider').value = document.getElementById('iphone-2x').textContent;
-document.getElementById('iphone-4x').textContent = Math.floor(Math.random() * 101) + 100;
-document.getElementById('iphone-4x-slider').value = document.getElementById('iphone-4x').textContent;
-document.getElementById('iphone-sniper').textContent = Math.floor(Math.random() * 101) + 100;
-document.getElementById('iphone-sniper-slider').value = document.getElementById('iphone-sniper').textContent;
-document.getElementById('iphone-freecam').textContent = Math.floor(Math.random() * 51) + 150;
-document.getElementById('iphone-freecam-slider').value = document.getElementById('iphone-freecam').textContent;
-document.getElementById('iphone-firebtn').textContent = Math.floor(Math.random() * 18) + 33;
-document.getElementById('iphone-firebtn-slider').value = document.getElementById('iphone-firebtn').textContent;
-document.getElementById('iphone-glider').textContent = Math.floor(Math.random() * 31) + 90;
-document.getElementById('iphone-glider-slider').value = document.getElementById('iphone-glider').textContent;
-document.getElementById('iphone-opacity').textContent = Math.random() > 0.5 ? '100%' : '90%';
-document.getElementById('iphone-opacity-slider').value = document.getElementById('iphone-opacity').textContent === '100%' ? 100 : 90;
-document.getElementById('iphone-tolerance').textContent = Math.floor(Math.random() * 101);
-document.getElementById('iphone-tolerance-slider').value = document.getElementById('iphone-tolerance').textContent;
+document.getElementById('ios-general').textContent = Math.floor(Math.random() * 21) + 50;
+document.getElementById('ios-general-slider').value = document.getElementById('ios-general').textContent;
+document.getElementById('ios-reddot').textContent = Math.floor(Math.random() * 16);
+document.getElementById('ios-reddot-slider').value = document.getElementById('ios-reddot').textContent;
+document.getElementById('ios-2x').textContent = Math.floor(Math.random() * 51) + 150;
+document.getElementById('ios-2x-slider').value = document.getElementById('ios-2x').textContent;
+document.getElementById('ios-4x').textContent = Math.floor(Math.random() * 101) + 100;
+document.getElementById('ios-4x-slider').value = document.getElementById('ios-4x').textContent;
+document.getElementById('ios-sniper').textContent = Math.floor(Math.random() * 101) + 100;
+document.getElementById('ios-sniper-slider').value = document.getElementById('ios-sniper').textContent;
+document.getElementById('ios-freecam').textContent = Math.floor(Math.random() * 51) + 150;
+document.getElementById('ios-freecam-slider').value = document.getElementById('ios-freecam').textContent;
+document.getElementById('ios-firebtn').textContent = Math.floor(Math.random() * 18) + 33;
+document.getElementById('ios-firebtn-slider').value = document.getElementById('ios-firebtn').textContent;
+document.getElementById('ios-glider').textContent = Math.floor(Math.random() * 31) + 90;
+document.getElementById('ios-glider-slider').value = document.getElementById('ios-glider').textContent;
+document.getElementById('ios-opacity').textContent = Math.random() > 0.5 ? '100%' : '90%';
+document.getElementById('ios-opacity-slider').value = document.getElementById('ios-opacity').textContent === '100%' ? 100 : 90;
+document.getElementById('ios-tolerance').textContent = Math.floor(Math.random() * 101);
+document.getElementById('ios-tolerance-slider').value = document.getElementById('ios-tolerance').textContent;
 } else {
 // Android settings
 // General: 130-200
@@ -1464,20 +1464,20 @@ document.getElementById('android-response-slider').value = parseInt(document.get
 }
 }
 
-function showNotification() {
-// Set notification style based on device
-notification.className = 'notification';
-if (document.body.classList.contains('iphone-mode')) {
-notification.classList.add('iphone');
+function showToast() {
+// Set toast style based on device
+toastMessage.className = 'toast-message';
+if (document.body.classList.contains('ios-theme')) {
+toastMessage.classList.add('ios');
 } else {
-notification.classList.add('android');
+toastMessage.classList.add('android');
 }
-notificationText.textContent = `Generating sensitivity settings for ${selectedHeadshotRate}% headshot rate...`;
-notification.classList.add('show');
+toastText.textContent = `Generating sensitivity settings for ${selectedHeadshotRate}% headshot rate...`;
+toastMessage.classList.add('show');
 setTimeout(() => {
-notificationText.textContent = `Sensitivity settings successfully generated for ${selectedHeadshotRate}% headshot rate!`;
+toastText.textContent = `Sensitivity settings successfully generated for ${selectedHeadshotRate}% headshot rate!`;
 setTimeout(() => {
-notification.classList.remove('show');
+toastMessage.classList.remove('show');
 // Show social section if credits are 0
 if (parseInt(credits.textContent) <= 0 || parseInt(androidCredits.textContent) <= 0) {
 socialSection.style.display = 'block';
@@ -1488,7 +1488,7 @@ showRandomSocialPlatforms();
 }
 
 function enableSettings() {
-const sliders = document.querySelectorAll('.slider');
+const sliders = document.querySelectorAll('.range-slider');
 const selects = document.querySelectorAll('select');
 sliders.forEach(slider => {
 slider.disabled = false;
@@ -1502,7 +1502,7 @@ generateBtn.addEventListener('click', () => {
 if (parseInt(credits.textContent) > 0) {
 generateSensitivity();
 credits.textContent = parseInt(credits.textContent) - 1;
-showNotification();
+showToast();
 enableSettings();
 } else {
 socialSection.style.display = 'block';
@@ -1514,7 +1514,7 @@ generateAndroidBtn.addEventListener('click', () => {
 if (parseInt(androidCredits.textContent) > 0) {
 generateSensitivity();
 androidCredits.textContent = parseInt(androidCredits.textContent) - 1;
-showNotification();
+showToast();
 enableSettings();
 } else {
 socialSection.style.display = 'block';
@@ -1522,9 +1522,9 @@ showRandomSocialPlatforms();
 }
 });
 
-// Handle social action completion
-const socialActionBtns = document.querySelectorAll('.social-actions .btn');
-socialActionBtns.forEach(btn => {
+// Handle social task completion
+const socialTaskBtns = document.querySelectorAll('.social-tasks .action-btn');
+socialTaskBtns.forEach(btn => {
 btn.addEventListener('click', (e) => {
 if (e.target.tagName === 'A') return; // Skip actual links
 // Reset credits
@@ -1532,11 +1532,11 @@ credits.textContent = 2;
 androidCredits.textContent = 2;
 // Hide social section
 socialSection.style.display = 'none';
-// Show success notification
-notificationText.textContent = "Thanks! You've received 2 more credits.";
-notification.classList.add('show');
+// Show success toast
+toastText.textContent = "Thanks! You've received 2 more credits.";
+toastMessage.classList.add('show');
 setTimeout(() => {
-notification.classList.remove('show');
+toastMessage.classList.remove('show');
 }, 2000);
 });
 });
